@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" ng-app="InstagramSearcher">
+<head>
+	<meta charset="UTF-8">
+	<title>Instagram Searcher</title>
+    <link type="text/css" rel="stylesheet" href="./reset.css">
+    <link type="text/css" rel="stylesheet" href="./main.css">
+    <script src="./angular.js" type="text/javascript"></script>
+    <script src="./instagram-searcher.js" type="text/javascript"></script>
+</head>
+<body>
+    <header class="container">
+        <div id="navInstaSearchLogo">
+            <img src="img/insta-search.png">
+        </div><!--
+     --><div id="navSearch">
+            <form ng-controller="FormCtrl" ng-submit="submit()" name="searchForm" novalidate>
+                <input type="text" placeholder="Enter a tag to search" ng-model="data.searchTag" required><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </header>
+    <section class="container">
+    </section>
+</body>
+</html>

@@ -1,0 +1,10 @@
+Research UI - what do you want this sucker to look like - DONE
+Implement UI - DONE
+Validate form
+- catch valid vs invalid conditions - DONE
+- in valid state, clear input field - DONE
+Add ng-if for "Searching Instagram" paragraph
+- turn on during searching when form is valid and AJAX call is made
+Add ng-if for "We found {{numResults}} results for {{tag}}"
+- turn on upon success
+- turn off upon subsequent search
