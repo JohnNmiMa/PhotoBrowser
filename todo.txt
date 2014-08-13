@@ -1,6 +1,6 @@
 Research UI - what do you want this sucker to look like - DONE
 Implement UI - DONE
-Validate form
+Validate form - DONE
 - catch valid vs invalid conditions - DONE
 - in valid state, clear input field - DONE
 Add ng-if for "Searching Instagram" paragraph
