@@ -3,8 +3,17 @@ Implement UI - DONE
 Validate form - DONE
 - catch valid vs invalid conditions - DONE
 - in valid state, clear input field - DONE
-Add ng-if for "Searching Instagram" paragraph
-- turn on during searching when form is valid and AJAX call is made
-Add ng-if for "We found {{numResults}} results for {{tag}}"
+Add ng-if for "Searching Instagram" paragraph - DONE
+- turn on during searching when form is valid and AJAX call is made - DONE
+Add ng-if for "We found {{numResults}} results for {{tag}}" - DONE
 - turn on upon success
 - turn off upon subsequent search
+Get images to be displayed upon startup
+- have first thumbnail always displayed in #image section
+Get thumbnail section to be a footer - DONE
+Get messages section to be positioned above the thumbnails section - DONE
+Get messages to show/hide when viewport is hovered
+- not in the flow, to move the images section - DONE
+Animate the "searching" and "We found" paragraphs
+Add hover border over thumbnails - DONE
+Add selected border over selected thumbnail

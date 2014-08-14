@@ -1,9 +1,33 @@
 angular.module('InstagramSearcher', [])
 
-.controller('InstagramCtrl', function($scope) {
-    $scope.$on('updateTag', function(event,tag) {
-        $scope.$broadcast('handleTag', tag);
+.controller('ImageDisplayCtrl', function($scope, $http) {
+    $scope.tag = null;
+    $scope.numPhotos = 0;
+    $scope.photos = [];
+    $scope.image = null;
+    $scope.$on('fetchPhotos', function(event, tag) {
+        $scope.tag = tag;
+        $http({
+            method: 'JSONP',
+            url: "https://api.instagram.com/v1/tags/" + tag + "/media/recent",
+            params: {
+                client_id: "f207767e49df4dc8923d8dd39ae934ff",
+                callback: "JSON_CALLBACK"
+            }
+        })
+        .success(function(results) {
+            $scope.photos = results.data;
+            $scope.tag = null;
+        })
+        .error(function() {
+            alert('error');
+        })
     })
+    $scope.displayPhoto = function(imageUrl) {
+        $scope.image = imageUrl;
+    }
+    $scope.showControls = function() {
+    }
 })
 
 .controller('FormCtrl', function($scope) {
@@ -13,8 +37,7 @@ angular.module('InstagramSearcher', [])
     }
     $scope.submit = function() {
         if($scope.searchForm.$valid) {
-            console.log('The Form is valid: search tag = ' + $scope.data.searchTag);
-            $scope.$emit('updateTag', $scope.data.searchTag);
+            $scope.$emit('fetchPhotos', $scope.data.searchTag);
             $scope.resetForm();
         } else {
             if ($scope.searchForm.$error.required) {
@@ -28,12 +51,5 @@ angular.module('InstagramSearcher', [])
         $scope.searchForm.$setPristine();
     }
     $scope.init();
-})
-
-
-.controller('MessageCtrl', function($scope) {
-    $scope.tag = null;
-    $scope.$on('handleTag', function(event, tag) {
-        $scope.tag = tag;
-    })
 });
+
