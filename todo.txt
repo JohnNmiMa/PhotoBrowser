@@ -6,8 +6,8 @@ Validate form - DONE
 Add ng-if for "Searching Instagram" paragraph - DONE
 - turn on during searching when form is valid and AJAX call is made - DONE
 Add ng-if for "We found {{numResults}} results for {{tag}}" - DONE
-- turn on upon success
-- turn off upon subsequent search
+- turn on upon success - DONE
+- turn off upon subsequent search - DONE
 Get images to be displayed upon startup
 - have first thumbnail always displayed in #image section
 Get thumbnail section to be a footer - DONE

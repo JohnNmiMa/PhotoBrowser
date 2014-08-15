@@ -28,7 +28,7 @@
         </section>
 
         <section id="messages" class="container">
-            <p ng-if="tag != null">Searching Instagram for photos tagged with "{{tag}}"</p>
+            <p ng-if="searching == true">Searching Instagram for photos tagged with "{{tag}}"</p>
             <p ng-if="numPhotos > 0">{{numPhotos}} results for "{{tag}}" were found</p>
         </section>
 

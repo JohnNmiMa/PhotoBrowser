@@ -1,13 +1,39 @@
 angular.module('InstagramSearcher', [])
 
-.controller('ImageDisplayCtrl', function($scope, $http) {
+.controller('ImageDisplayCtrl', function($scope, $timeout, $q, $http) {
     $scope.tag = null;
+    $scope.searching = false;
     $scope.numPhotos = 0;
     $scope.photos = [];
     $scope.image = null;
+
     $scope.$on('fetchPhotos', function(event, tag) {
-        $scope.tag = tag;
-        $http({
+        $scope.tag = tag
+        notifySearching(tag)
+        .then(notifyNumResults)
+        .finally(function() {
+            $scope.tag = null;
+        });
+    })
+
+    function notifySearching(tag) {
+        var defer = $q.defer();
+        $scope.searching = true;
+        searchInstagram(tag)
+        .then(function(data) {
+            defer.resolve(data.data.data.length);
+        })
+        .catch(function() {
+            defer.reject(0);
+        })
+        .finally(function() {
+            $scope.searching = false;
+        });
+        return defer.promise;
+    }
+
+    function searchInstagram(tag) {
+        return $http({
             method: 'JSONP',
             url: "https://api.instagram.com/v1/tags/" + tag + "/media/recent",
             params: {
@@ -17,17 +43,28 @@ angular.module('InstagramSearcher', [])
         })
         .success(function(results) {
             $scope.photos = results.data;
-            $scope.tag = null;
         })
         .error(function() {
             alert('error');
         })
-    })
+    }
+
+    function notifyNumResults(num) {
+        var defer = $q.defer();
+        $scope.numPhotos = num;
+        $timeout(function() {
+            $scope.numPhotos = 0;
+            defer.resolve();
+        }, 5000);
+        return defer.promise;
+    }
+
     $scope.displayPhoto = function(imageUrl) {
         $scope.image = imageUrl;
     }
-    $scope.showControls = function() {
-    }
+    //$scope.showControls = function() {
+        ////$scope.
+    //}
 })
 
 .controller('FormCtrl', function($scope) {
