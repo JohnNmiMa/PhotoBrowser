@@ -98,6 +98,7 @@ footer {
 }
     footer::-webkit-scrollbar {
         background-color:#272727;
+        height:10px;
     }
     footer::-webkit-scrollbar-thumb {
         background-color:#272727;

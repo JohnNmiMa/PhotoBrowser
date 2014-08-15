@@ -44,6 +44,7 @@ angular.module('InstagramSearcher', [])
         })
         .success(function(results) {
             $scope.photos = results.data;
+            $scope.displayPhoto($scope.photos[0].images.standard_resolution.url);
         })
         .error(function() {
             alert('error');
