@@ -90,4 +90,3 @@ angular.module('InstagramSearcher', ['ngAnimate'])
     $scope.init();
 });
 
-

@@ -11,7 +11,7 @@
     <script src="./instagram-searcher.js" type="text/javascript"></script>
 </head>
 <body ng-controller="ImageDisplayCtrl" ng-mouseover="showControls=true" ng-mouseleave="showControls=false">
-    <header class="container" ng-show="showControls == true">
+    <header class="container animate" ng-show="showControls == true">
         <div id="navInstaSearchLogo">
             <img src="img/insta-search.png">
         </div><!--
@@ -33,7 +33,7 @@
             <p ng-if="numPhotos > 0">{{numPhotos}} results for "{{tag}}" were found</p>
         </section>
 
-        <footer ng-class="{control:showControls}">
+        <footer ng-class="{animate:showControls}">
             <a ng-repeat="photo in photos"
                ng-click="displayPhoto(photo.images.standard_resolution.url, $event)"
                href="javascript:void(0)">

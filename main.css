@@ -17,6 +17,12 @@ header.container {
     margin-top:20px;
     /*border:2px solid red;*/
 }
+    header.animate {
+        -webkit-transition:all linear 0.5s;
+    }
+    header.animate.ng-hide {
+        opacity:0;
+    }
 #navInstaSearchLogo, #navSearch {
     vertical-align: top;
     height:60px;
@@ -110,12 +116,13 @@ footer {
     }
     footer::-webkit-scrollbar-thumb {
         background-color:#272727;
+        background-color:#fff;
         -webkit-border-radius: 1ex;
         -webkit-box-shadow:none;
     }
-        footer.control::-webkit-scrollbar-thumb {
-            background-color:#fff;
-        }
+        /*footer.animate::-webkit-scrollbar-thumb {*/
+            /*background-color:#fff;*/
+        /*}*/
     footer a {
         position:relative;
         display:inline-block;
