@@ -12,8 +12,12 @@ Get images to be displayed upon startup
 - have first thumbnail always displayed in #image section
 Get thumbnail section to be a footer - DONE
 Get messages section to be positioned above the thumbnails section - DONE
-Get messages to show/hide when viewport is hovered
+Get messages to show/hide when viewport is hovered - DONE
 - not in the flow, to move the images section - DONE
-Animate the "searching" and "We found" paragraphs
+Animate the showing and hiding of controls
+- animate the message bar
+- animate the scroll bar
+- animate the header
 Add hover border over thumbnails - DONE
 Add selected border over selected thumbnail
+Add extra info from photo in message bar

@@ -6,6 +6,7 @@ angular.module('InstagramSearcher', [])
     $scope.numPhotos = 0;
     $scope.photos = [];
     $scope.image = null;
+    $scope.showControls = false;
 
     $scope.$on('fetchPhotos', function(event, tag) {
         $scope.tag = tag
@@ -62,9 +63,6 @@ angular.module('InstagramSearcher', [])
     $scope.displayPhoto = function(imageUrl) {
         $scope.image = imageUrl;
     }
-    //$scope.showControls = function() {
-        ////$scope.
-    //}
 })
 
 .controller('FormCtrl', function($scope) {

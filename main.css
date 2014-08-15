@@ -100,10 +100,13 @@ footer {
         background-color:#272727;
     }
     footer::-webkit-scrollbar-thumb {
-        background-color:#000;
+        background-color:#272727;
         -webkit-border-radius: 1ex;
         -webkit-box-shadow:none;
     }
+        footer.control::-webkit-scrollbar-thumb {
+            background-color:#fff;
+        }
     footer a {
         position:relative;
         display:inline-block;

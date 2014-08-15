@@ -9,8 +9,8 @@
     <script src="./angular.js" type="text/javascript"></script>
     <script src="./instagram-searcher.js" type="text/javascript"></script>
 </head>
-<body ng-controller="ImageDisplayCtrl">
-    <header class="container">
+<body ng-controller="ImageDisplayCtrl" ng-mouseover="showControls=true" ng-mouseleave="showControls=false">
+    <header class="container" ng-show="showControls == true">
         <div id="navInstaSearchLogo">
             <img src="img/insta-search.png">
         </div><!--
@@ -27,12 +27,12 @@
             <img ng-src="{{image}}">
         </section>
 
-        <section id="messages" class="container">
+        <section id="messages" class="container" ng-show="showControls == true">
             <p ng-if="searching == true">Searching Instagram for photos tagged with "{{tag}}"</p>
             <p ng-if="numPhotos > 0">{{numPhotos}} results for "{{tag}}" were found</p>
         </section>
 
-        <footer>
+        <footer ng-class="{control:showControls}">
             <a ng-repeat="photo in photos"
                ng-click="displayPhoto(photo.images.standard_resolution.url)"
                href="javascript:void(0)">
