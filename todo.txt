@@ -22,3 +22,4 @@ Add hover border over thumbnails - DONE
 Add selected border over selected thumbnail
 Add extra info from photo in message bar
 Fix size of thumbnail bar
+Add left/right progress arrow controls

@@ -1,4 +1,4 @@
-angular.module('InstagramSearcher', [])
+angular.module('InstagramSearcher', ['ngAnimate'])
 
 .controller('ImageDisplayCtrl', function($scope, $timeout, $q, $http) {
     $scope.tag = null;
@@ -61,8 +61,9 @@ angular.module('InstagramSearcher', [])
         return defer.promise;
     }
 
-    $scope.displayPhoto = function(imageUrl) {
+    $scope.displayPhoto = function(imageUrl, $event) {
         $scope.image = imageUrl;
+        //console.log("thumbnail clicked = " + $event.target);
     }
 })
 
@@ -88,4 +89,5 @@ angular.module('InstagramSearcher', [])
     }
     $scope.init();
 });
+
 
