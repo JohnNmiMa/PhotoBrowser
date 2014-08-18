@@ -79,24 +79,41 @@ header {
         bottom:0;
         width:100%;
         min-height:170px;
+        text-align:center;
         text-align: -webkit-center;
     }
         #imageDisplay img {
-            padding-top:20px;
+            padding-top:10px;
             height:100%;
+            opacity:0;
         }
-            #imageDisplay img.ng-hide-add {
-              -webkit-animation:0.4s hide-image;
-                      animation:0.4s hide-image;
+            #imageDisplay img.animate {
+                opacity:1;
             }
-            @keyframes hide-image {
-                from { opacity:1; }
-                to   { opacity:0; }
+            #imageDisplay img.animate-add {
+              -webkit-animation:0.5s ease-out show-image;
+                      animation:0.5s ease-out show-image;
             }
-            @-webkit-keyframes hide-image {
-                from { opacity:1; }
-                to   { opacity:0; }
+                @keyframes show-image {
+                    from { opacity:0; }
+                    to   { opacity:1; }
+                }
+                @-webkit-keyframes show-image {
+                    from { opacity:0; }
+                    to   { opacity:1; }
+                }
+            #imageDisplay img.animate-remove {
+              -webkit-animation:0.5s ease-in hide-image;
+                      animation:0.5s ease-in hide-image;
             }
+                @keyframes hide-image {
+                    from { opacity:1; }
+                    to   { opacity:0; }
+                }
+                @-webkit-keyframes hide-image {
+                    from { opacity:1; }
+                    to   { opacity:0; }
+                }
 
     #messages {
         position:fixed;
@@ -144,7 +161,7 @@ header {
             .photoCaption p {
                 position:absolute;
                 height:50px;
-                line-height:1;
+                line-height:1.1;
                 width:100%;
                 padding-left:60px;
             }
@@ -173,9 +190,6 @@ footer {
         -webkit-border-radius: 1ex;
         -webkit-box-shadow:none;
     }
-        /*.slider.animate::-webkit-scrollbar-thumb {*/
-            /*background-color:#fff;*/
-        /*}*/
     .slider a {
         position:relative;
         display:inline-block;

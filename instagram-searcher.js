@@ -1,44 +1,21 @@
 angular.module('InstagramSearcher', ['ngAnimate'])
+.constant('IMAGE_TRANSITION', 400)
 
-.controller('ImageDisplayCtrl', function($scope, $timeout, $q, $http) {
+.controller('ImageDisplayCtrl', function($scope, $timeout, $q, $http, IMAGE_TRANSITION) {
     $scope.tag = null;
     $scope.photos = [];
     $scope.currentPhoto = null;
     $scope.imageUrl = null;
     $scope.userImageUrl = null;
     $scope.showControls = false;
-    $scope.showImage = true;
+    $scope.showImage = false;
     $scope.searchCaption = null;
     $scope.loadCaption = null;
 
-    $scope.$on('imageLoaded', function(event) {
-        $scope.$apply(function() {
-            if ($scope.searchCaption == null) {
-                $scope.loadCaption = null;
-                notifyPhoto();
-            }
-        });
-    })
 
-    function notifyPhoto() {
-        $scope.userImageUrl = $scope.currentPhoto.user && $scope.currentPhoto.user.profile_picture;
-    }
-
-    $scope.$on('userImageLoaded', function(event) {
-        $scope.$apply(function() {
-            var text = $scope.currentPhoto.user.username + ": ";
-            if ($scope.currentPhoto.caption && ($scope.currentPhoto.caption.text != null)) {
-                var caption = $scope.currentPhoto.caption.text,
-                    regexp = new RegExp('#([^\\s]*)','g');
-                caption = caption.replace(regexp, '');
-                if (caption != '') {
-                    text += caption;
-                }
-            }
-            $scope.loadCaption = text;
-            console.log("Loaded photo info");
-        });
-    })
+    /********************************/
+    /* Process instagram tag search */
+    /********************************/
 
     $scope.$on('fetchPhotos', function(event, tag) {
         $scope.tag = tag
@@ -94,6 +71,11 @@ angular.module('InstagramSearcher', ['ngAnimate'])
         return defer.promise;
     }
 
+
+    /********************************/
+    /* React to thumbnail selection */
+    /********************************/
+
     $scope.displayPhoto = function(photo) {
         var imageUrl = photo.images.standard_resolution.url;
         if (($scope.currentPhoto == null) || ($scope.currentPhoto.id != photo.id)) {
@@ -102,12 +84,59 @@ angular.module('InstagramSearcher', ['ngAnimate'])
                 $scope.userImageUrl = null;
                 $scope.loadCaption = "Loading image from \"" + $scope.tag + "\"";
             }
-            $scope.imageUrl = imageUrl;
+            $scope.showImage = false;
+            if ($scope.currentPhoto == null) {
+                // It's the first picture from a search - don't need to wait to fade out
+                $scope.imageUrl = photo.images.standard_resolution.url;
+            } else {
+                // Let the current pic face out before we look at a new pic
+                $timeout(function() {
+                    $scope.imageUrl = photo.images.standard_resolution.url;
+                }, IMAGE_TRANSITION);
+            }
         }
     }
-    $scope.tsi = function() {
-        $scope.showImage = !$scope.showImage;
+
+
+    /****************************************************/
+    /* React to loading of image from ng-src directive  */
+    /****************************************************/
+
+    /* React to main image being loaded - from custom imageonload directive */
+    $scope.$on('imageLoaded', function(event) {
+        $scope.$apply(function() {
+            $scope.showImage = true;
+
+            if ($scope.searchCaption == null) {
+                $scope.loadCaption = null;
+                notifyPhoto();
+            }
+        });
+    })
+
+    /* Load the user's profile image */
+    function notifyPhoto() {
+        $scope.userImageUrl = $scope.currentPhoto.user && $scope.currentPhoto.user.profile_picture;
     }
+
+    /* React to the user's profile image being loaded - from custom userimageonload directive */
+    $scope.$on('userImageLoaded', function(event) {
+        $scope.$apply(function() {
+            var text = $scope.currentPhoto.user.username + ": ";
+            if ($scope.currentPhoto.caption && ($scope.currentPhoto.caption.text != null)) {
+                var caption = $scope.currentPhoto.caption.text,
+                    regexp = new RegExp('#([^\\s]*)','g');
+                /* uncomment the following to remove tags from the caption string */
+                //caption = caption.replace(regexp, '');
+                if (caption != '') {
+                    text += caption;
+                }
+            }
+            $scope.loadCaption = text;
+            console.log("Loaded photo info");
+        });
+    })
+
 })
 
 .controller('FormCtrl', function($scope) {

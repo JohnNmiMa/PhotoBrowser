@@ -22,11 +22,10 @@
             </form>
         </div>
     </header>
-    <!--<button class="testbutton" type="button" ng-click="tsi()">Toggle</button>-->
 
     <div id="viewport">
         <div id="imageDisplay">
-            <img ng-src="{{imageUrl}}" imageonload ng-show="showImage == true">
+            <img ng-src="{{imageUrl}}" imageonload ng-class="{animate:showImage}">
         </div>
 
         <section id="messages" class="animate" ng-show="showControls == true">
@@ -38,7 +37,7 @@
         </section>
     </div>
 
-    <footer ng-class="{animate:showControls}">
+    <footer>
         <div class="slider">
             <a ng-repeat="photo in photos"
                ng-click="displayPhoto(photo, $event)"
