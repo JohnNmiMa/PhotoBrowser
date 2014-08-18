@@ -28,7 +28,12 @@ angular.module('InstagramSearcher', ['ngAnimate'])
         $scope.$apply(function() {
             var text = $scope.currentPhoto.user.username + ": ";
             if ($scope.currentPhoto.caption && ($scope.currentPhoto.caption.text != null)) {
-                text += $scope.currentPhoto.caption.text;
+                var caption = $scope.currentPhoto.caption.text,
+                    regexp = new RegExp('#([^\\s]*)','g');
+                caption = caption.replace(regexp, '');
+                if (caption != '') {
+                    text += caption;
+                }
             }
             $scope.loadCaption = text;
             console.log("Loaded photo info");
@@ -85,7 +90,7 @@ angular.module('InstagramSearcher', ['ngAnimate'])
         $timeout(function() {
             $scope.searchCaption = null;
             defer.resolve();
-        }, 4000);
+        }, 500);
         return defer.promise;
     }
 
