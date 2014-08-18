@@ -3,151 +3,211 @@ body {
     background-color:#272727;
     color:#fff;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    min-height:600px;
+    min-height:390px
     overflow-x:hidden;
     overflow-y:hidden;
 }
-.container {
-    position:relative;
-    padding:0 30px;
-}
 
 /* Header Layout */
-header.container {
-    margin-top:20px;
+header {
+    position:relative;
+    height:90px;
+    padding:30px 30px;
     /*border:2px solid red;*/
 }
-    header.animate {
-        -webkit-transition:all linear 0.5s;
+    #navInstaSearchLogo, #navSearch {
+        height:60px;
     }
-    header.animate.ng-hide {
-        opacity:0;
+        #navInstaSearchLogo.ng-hide-add, #navSearch.ng-hide-add {
+            -webkit-transition:all ease-out 0.4s;
+                    transition:all ease-out 0.4s;
+        }
+        #navInstaSearchLogo.ng-hide-remove, #navSearch.ng-hide-remove {
+            -webkit-transition:all ease-in 0.3s;
+                    transition:all ease-in 0.3s;
+        }
+            #navInstaSearchLogo.ng-hide, #navSearch.ng-hide {
+                opacity:0;
+            }
+    #navInstaSearchLogo {
+        width:25%;
     }
-#navInstaSearchLogo, #navSearch {
-    vertical-align: top;
-    height:60px;
-}
-#navInstaSearchLogo {
-    width:25%;
-}
-    img[src="img/insta-search.png"] {
-        height:100%;
-        border-radius:10px;
-    }
-#navSearch {
-    position:absolute;
-    top:0;
-    left:30px;
-    right:30px;
-    text-align:center;
-}
-    form {
-    }
-        form input, form button {
-            height:25px;
-            border:none;
+        img[src="img/insta-search.png"] {
+            height:100%;
             border-radius:10px;
         }
-        form input {
-            text-align:center;
-            width:25%;
-            min-width:150px;
-        }
-        form button {
-            margin-top:10px;
-            background-color:black;
-            color:#999;
-        }
-            form input:focus, form button:focus {
-                outline: 0;
-                box-shadow: 0 0 6px 6px #365b85;
-            }
-#viewport {
-    position: absolute;
-    width:100%;
-    top:80px;
-    bottom:0;
-}
-
-#imageDisplay {
-    height:100%;
-    padding:20px 30px 130px 30px;
-    vertical-align:middle;
-    text-align:center;
-}
-    #imageDisplay img {
-        height:100%;
+    #navSearch {
+        position:absolute;
+        top:30px;
+        left:30px;
+        right:30px;
         text-align:center;
     }
+        form {
+        }
+            form input, form button {
+                height:25px;
+                border:none;
+                border-radius:10px;
+            }
+            form input {
+                text-align:center;
+                width:25%;
+                min-width:150px;
+            }
+            form button {
+                margin-top:10px;
+                background-color:black;
+                color:#999;
+            }
+                form input:focus, form button:focus {
+                    outline: 0;
+                    box-shadow: 0 0 6px 6px #365b85;
+                }
 
-#messages {
-    position:fixed;
-    bottom:130px;
+#viewport {
+    position:absolute;
+    top:0;
+    bottom:0;
     width:100%;
-    height:60px;
-    background-color: rgba(0, 0, 0, .3);
-    line-height:60px;
+    margin-top:90px;
+    margin-bottom:130px;
 }
-    #messages p {
-        font-size:12px;
+    #imageDisplay {
+        position:absolute;
+        top:0;
+        bottom:0;
+        width:100%;
+        min-height:170px;
+        text-align: -webkit-center;
     }
-    #messages.animate {
-        -webkit-transition:all linear 0.5s;
+        #imageDisplay img {
+            padding-top:20px;
+            height:100%;
+        }
+            #imageDisplay img.ng-hide-add {
+              -webkit-animation:0.4s hide-image;
+                      animation:0.4s hide-image;
+            }
+            @keyframes hide-image {
+                from { opacity:1; }
+                to   { opacity:0; }
+            }
+            @-webkit-keyframes hide-image {
+                from { opacity:1; }
+                to   { opacity:0; }
+            }
+
+    #messages {
+        position:fixed;
+        bottom:130px;
+        width:100%;
+        height:60px;
+        background-color: rgba(0, 0, 0, .3);
+        line-height:60px;
+        padding:0 30px;
+        white-space: nowrap;
     }
-    #messages.animate.ng-hide {
-        opacity:0;
-    }
+        #messages.animate.ng-hide-add {
+            -webkit-transition:opacity ease-out 0.4s;
+                    transition:opacity ease-out 0.4s;
+        }
+        #messages.animate.ng-hide-remove {
+            -webkit-transition:opacity ease-in 0.3s;
+                    transition:opacity ease-in 0.3s;
+        }
+            #messages.animate.ng-hide {
+                opacity:0;
+            }
+        #messages p {
+            font-size:12px;
+        }
+            #messages p.animate.ng-leave {
+                -webkit-transition:opacity linear 1s;
+                        transition:opacity linear 1s;
+            }
+                #messages p.animate.ng-leave-active {
+                    opacity:0;
+                }
+        #messages .photoCaption {
+            position:absolute;
+            top:0;
+            left:30px;
+            white-space: nowrap;
+        }
+            #messages .photoCaption img {
+                float:left;
+                height:50px;
+                margin-top:5px;
+                border-radius: 30px;
+            }
+            #messages .photoCaption p {
+                float:left;
+                padding-left:10px;
+                white-space: nowrap;
+            }
 
 footer {
     position:absolute;
-    /*width:100%;*/
-    left:30px;
-    right:30px;
+    width:100%;
     bottom:0;
-    height:100px;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
-    margin-bottom:20px;
+    height:120px;
 }
-    footer::-webkit-scrollbar {
+    .slider {
+        position:absolute;
+        left: 30px;
+        right: 30px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+    .slider::-webkit-scrollbar {
         background-color:#272727;
         height:10px;
     }
-    footer::-webkit-scrollbar-thumb {
+    .slider::-webkit-scrollbar-thumb {
         background-color:#272727;
         background-color:#fff;
         -webkit-border-radius: 1ex;
         -webkit-box-shadow:none;
     }
-        /*footer.animate::-webkit-scrollbar-thumb {*/
+        /*.slider.animate::-webkit-scrollbar-thumb {*/
             /*background-color:#fff;*/
         /*}*/
-    footer a {
+    .slider a {
         position:relative;
         display:inline-block;
         text-decoration:none;
         margin:0 5px;
     }
-        footer a:first-child {
+        .slider a:first-child {
             margin-left:0;
         }
-        footer a:last-child {
+        .slider a:last-child {
             margin-right:0;
         }
-        footer img {
+        .slider img {
             height:85px;
         }
-        footer .thumbwindow {
+        .slider .thumbwindow {
             position:absolute;
             top:0;
             left:0;
             width:85px;
             height:85px;
         }
-            footer .thumbwindow:hover {
+            .slider .thumbwindow:hover {
                 border:2px solid rgba(255,255,255,0.5);
             }
-            footer .thumbwindow.selected:hover {
+            .slider .thumbwindow.selected:hover {
                 border:10px solid rgba(255,255,255,0.5);
             }
+
+button.testbutton {
+    position:absolute;
+    top:90px;
+    left:30px;
+    background-color:#fff;
+    color:#000;
+    z-index:10;
+}

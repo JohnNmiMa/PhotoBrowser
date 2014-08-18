@@ -2,24 +2,53 @@ angular.module('InstagramSearcher', ['ngAnimate'])
 
 .controller('ImageDisplayCtrl', function($scope, $timeout, $q, $http) {
     $scope.tag = null;
-    $scope.searching = false;
-    $scope.numPhotos = 0;
     $scope.photos = [];
-    $scope.image = null;
+    $scope.currentPhoto = null;
+    $scope.imageUrl = null;
+    $scope.userImageUrl = null;
     $scope.showControls = false;
+    $scope.showImage = true;
+    $scope.searchCaption = null;
+    $scope.loadCaption = null;
+
+    $scope.$on('imageLoaded', function(event) {
+        $scope.$apply(function() {
+            if ($scope.searchCaption == null) {
+                $scope.loadCaption = null;
+                notifyPhoto();
+            }
+        });
+    })
+
+    function notifyPhoto() {
+        $scope.userImageUrl = $scope.currentPhoto.user && $scope.currentPhoto.user.profile_picture;
+    }
+
+    $scope.$on('userImageLoaded', function(event) {
+        $scope.$apply(function() {
+            var text = $scope.currentPhoto.user.username + ": ";
+            if ($scope.currentPhoto.caption && ($scope.currentPhoto.caption.text != null)) {
+                text += $scope.currentPhoto.caption.text;
+            }
+            $scope.loadCaption = text;
+            console.log("Loaded photo info");
+        });
+    })
 
     $scope.$on('fetchPhotos', function(event, tag) {
         $scope.tag = tag
+        $scope.loadCaption = null;
+        $scope.currentPhoto = null;
         notifySearching(tag)
         .then(notifyNumResults)
         .finally(function() {
-            $scope.tag = null;
+            $scope.searchCaption = null;
         });
     })
 
     function notifySearching(tag) {
         var defer = $q.defer();
-        $scope.searching = true;
+        $scope.searchCaption = "Searching Instagram for photos tagged with \"" + tag +"\"";
         searchInstagram(tag)
         .then(function(data) {
             defer.resolve(data.data.data.length);
@@ -28,7 +57,6 @@ angular.module('InstagramSearcher', ['ngAnimate'])
             defer.reject(0);
         })
         .finally(function() {
-            $scope.searching = false;
         });
         return defer.promise;
     }
@@ -44,7 +72,7 @@ angular.module('InstagramSearcher', ['ngAnimate'])
         })
         .success(function(results) {
             $scope.photos = results.data;
-            $scope.displayPhoto($scope.photos[0].images.standard_resolution.url);
+            $scope.displayPhoto($scope.photos[0]);
         })
         .error(function() {
             alert('error');
@@ -53,17 +81,27 @@ angular.module('InstagramSearcher', ['ngAnimate'])
 
     function notifyNumResults(num) {
         var defer = $q.defer();
-        $scope.numPhotos = num;
+        $scope.searchCaption = num + " results for \"" + $scope.tag + "\" were found";
         $timeout(function() {
-            $scope.numPhotos = 0;
+            $scope.searchCaption = null;
             defer.resolve();
-        }, 5000);
+        }, 4000);
         return defer.promise;
     }
 
-    $scope.displayPhoto = function(imageUrl, $event) {
-        $scope.image = imageUrl;
-        //console.log("thumbnail clicked = " + $event.target);
+    $scope.displayPhoto = function(photo) {
+        var imageUrl = photo.images.standard_resolution.url;
+        if (($scope.currentPhoto == null) || ($scope.currentPhoto.id != photo.id)) {
+            $scope.currentPhoto = photo;
+            if ($scope.searchCaption == null) {
+                $scope.userImageUrl = null;
+                $scope.loadCaption = "Loading image from \"" + $scope.tag + "\"";
+            }
+            $scope.imageUrl = imageUrl;
+        }
+    }
+    $scope.tsi = function() {
+        $scope.showImage = !$scope.showImage;
     }
 })
 
@@ -88,5 +126,26 @@ angular.module('InstagramSearcher', ['ngAnimate'])
         $scope.searchForm.$setPristine();
     }
     $scope.init();
-});
+})
 
+.directive('imageonload', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.bind('load', function() {
+                scope.$emit('imageLoaded');
+            });
+        }
+    };
+})
+
+.directive('userimageonload', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.bind('load', function() {
+                scope.$emit('userImageLoaded');
+            });
+        }
+    };
+});

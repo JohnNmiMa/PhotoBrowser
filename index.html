@@ -10,37 +10,43 @@
     <script src="./angular-animate.js" type="text/javascript"></script>
     <script src="./instagram-searcher.js" type="text/javascript"></script>
 </head>
-<body ng-controller="ImageDisplayCtrl" ng-mouseover="showControls=true" ng-mouseleave="showControls=false">
-    <header class="container animate" ng-show="showControls == true">
-        <div id="navInstaSearchLogo">
+<body ng-controller="ImageDisplayCtrl" ng-mouseenter="showControls=true" ng-mouseleave="showControls=false">
+    <header class="animate">
+        <div id="navInstaSearchLogo" ng-show="showControls">
             <img src="img/insta-search.png">
         </div><!--
-     --><div id="navSearch">
+     --><div id="navSearch" ng-show="showControls">
             <form ng-controller="FormCtrl" ng-submit="submit()" name="searchForm" novalidate>
                 <input type="text" placeholder="Enter a tag to search" ng-model="data.searchTag" required><br>
                 <button type="submit">Submit</button>
             </form>
         </div>
     </header>
+    <!--<button class="testbutton" type="button" ng-click="tsi()">Toggle</button>-->
 
-    <div id="viewport" ng-focus="showControls()">
-        <section id="imageDisplay">
-            <img ng-src="{{image}}">
+    <div id="viewport">
+        <div id="imageDisplay">
+            <img ng-src="{{imageUrl}}" imageonload ng-show="showImage == true">
+        </div>
+
+        <section id="messages" class="animate" ng-show="showControls == true">
+            <p class="animate" ng-if="searchCaption != null">{{searchCaption}}</p>
+            <div class="photoCaption" ng-show="loadCaption != null">
+                <img ng-src="{{userImageUrl}}" ng-if="userImageUrl != null" userimageonload>
+                <p class="animate" ng-if="loadCaption != null">{{loadCaption}}</p>
+            </div>
         </section>
+    </div>
 
-        <section id="messages" class="container animate" ng-show="showControls == true">
-            <p ng-if="searching == true">Searching Instagram for photos tagged with "{{tag}}"</p>
-            <p ng-if="numPhotos > 0">{{numPhotos}} results for "{{tag}}" were found</p>
-        </section>
-
-        <footer ng-class="{animate:showControls}">
+    <footer ng-class="{animate:showControls}">
+        <div class="slider">
             <a ng-repeat="photo in photos"
-               ng-click="displayPhoto(photo.images.standard_resolution.url, $event)"
+               ng-click="displayPhoto(photo, $event)"
                href="javascript:void(0)">
                 <img ng-src="{{photo.images.thumbnail.url}}">
                 <div class="thumbwindow" ng-class="{selected:selected}"></div>
             </a>
-        </footer>
-    </div>
+        </div>
+    </footer>
 </body>
 </html>
