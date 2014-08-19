@@ -13,6 +13,7 @@ header {
     position:relative;
     height:90px;
     padding:30px 30px;
+    z-index:10;
     /*border:2px solid red;*/
 }
     #navInstaSearchLogo, #navSearch {
@@ -70,7 +71,7 @@ header {
     top:0;
     bottom:0;
     width:100%;
-    margin-top:90px;
+    margin-top:10px;
     margin-bottom:130px;
 }
     #imageDisplay {
@@ -118,7 +119,8 @@ header {
     #messages {
         position:fixed;
         bottom:130px;
-        width:100%;
+        left:0;
+        right:0;
         height:60px;
         background-color: rgba(0, 0, 0, .3);
         line-height:60px;
@@ -148,7 +150,8 @@ header {
                 }
         .photoCaption {
             position:absolute;
-            width:100%;
+            left:30px;
+            right:30px;
             height:60px;
             padding:5px 0;
             overflow:hidden;
@@ -161,10 +164,10 @@ header {
             }
             .photoCaption p {
                 position:absolute;
+                left:60px;
+                right:0;
                 height:50px;
                 line-height:1.1;
-                width:100%;
-                padding-left:60px;
             }
 
 footer {
