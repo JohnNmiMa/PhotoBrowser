@@ -7,7 +7,7 @@ angular.module('InstagramSearcher', ['ngAnimate'])
     $scope.currentPhoto = null;
     $scope.imageUrl = null;
     $scope.userImageUrl = null;
-    $scope.showControls = false;
+    $scope.showControls = true;
     $scope.showImage = false;
     $scope.searchCaption = null;
     $scope.loadCaption = null;
