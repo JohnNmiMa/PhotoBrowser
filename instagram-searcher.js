@@ -24,7 +24,6 @@ angular.module('InstagramSearcher', ['ngAnimate'])
         notifySearching(tag)
         .then(notifyNumResults)
         .finally(function() {
-            $scope.searchCaption = null;
         });
     })
 
@@ -106,11 +105,8 @@ angular.module('InstagramSearcher', ['ngAnimate'])
     $scope.$on('imageLoaded', function(event) {
         $scope.$apply(function() {
             $scope.showImage = true;
-
-            if ($scope.searchCaption == null) {
-                $scope.loadCaption = null;
-                notifyPhoto();
-            }
+            $scope.loadCaption = null;
+            notifyPhoto();
         });
     })
 
@@ -136,7 +132,6 @@ angular.module('InstagramSearcher', ['ngAnimate'])
             console.log("Loaded photo info");
         });
     })
-
 })
 
 .controller('FormCtrl', function($scope) {

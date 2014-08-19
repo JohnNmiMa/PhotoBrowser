@@ -136,6 +136,7 @@ header {
                 opacity:0;
             }
         #messages p {
+            position:absolute;
             font-size:12px;
         }
             #messages p.animate.ng-leave {
@@ -146,7 +147,7 @@ header {
                     opacity:0;
                 }
         .photoCaption {
-            position:relative;
+            position:absolute;
             width:100%;
             height:60px;
             padding:5px 0;
